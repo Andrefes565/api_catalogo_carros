@@ -1,10 +1,11 @@
-package com.andreFelipe.catalogoCarros.domains.model;
+package com.andreFelipe.catalogoCarros.domain;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 
 @Data
@@ -12,12 +13,14 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Entity
 @Table(name="veiculo")
-public class Veiculo {
+public class Veiculo implements Serializable {
+
+    private static final long serialVerUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private Integer id;
+    private Long id;
     @Column(name = "modelo")
     private String modelo;
     @Column(name = "preco", precision = 20, scale = 2)

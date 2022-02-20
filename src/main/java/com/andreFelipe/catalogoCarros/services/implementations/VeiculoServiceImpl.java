@@ -1,9 +1,15 @@
 package com.andreFelipe.catalogoCarros.services.implementations;
 
-import com.andreFelipe.catalogoCarros.domains.model.Veiculo;
+import com.andreFelipe.catalogoCarros.domain.Veiculo;
+import com.andreFelipe.catalogoCarros.model.FilterModel;
+import com.andreFelipe.catalogoCarros.model.PageModel;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
-import com.andreFelipe.catalogoCarros.domains.repository.VeiculoRepository;
+import com.andreFelipe.catalogoCarros.repository.VeiculoRepository;
 import com.andreFelipe.catalogoCarros.rest.dtos.VeiculoDTO;
 import com.andreFelipe.catalogoCarros.services.abstrations.VeiculoService;
 
@@ -24,11 +30,11 @@ public class VeiculoServiceImpl implements VeiculoService {
     public Veiculo create(VeiculoDTO dto) {
         Veiculo veiculo = new Veiculo();
 
+        veiculo.setMarca(dto.getMarca());
         veiculo.setModelo(dto.getModelo());
         veiculo.setPreco(dto.getPreco());
         veiculo.setQuilometragem(dto.getQuilometragem());
         veiculo.setAno(dto.getAno());
-        veiculo.setMarca(dto.getMarca());
         veiculo.setTransmissao(dto.getTransmissao());
         veiculo.setCarroceria(dto.getCarroceria());
         veiculo.setCombustivel(dto.getCombustivel());
@@ -41,6 +47,15 @@ public class VeiculoServiceImpl implements VeiculoService {
     public List<Veiculo> listAll() {
         return veiculoRepository.findAll();
     }
+
+    @Override
+    public PageModel<Veiculo> listAll(FilterModel filter) {
+
+        Page<Veiculo> veiculoPage =veiculoRepository.findAll(filter.toSpringPageable());
+        PageModel<Veiculo> pm = new PageModel<>(veiculoPage);
+        return pm;
+    }
+
 
     @Override
     public Optional<Veiculo> findById(Integer id) {
