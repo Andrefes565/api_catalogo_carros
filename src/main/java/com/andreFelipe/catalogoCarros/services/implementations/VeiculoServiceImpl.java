@@ -27,6 +27,13 @@ public class VeiculoServiceImpl implements VeiculoService {
         veiculo.setModelo(dto.getModelo());
         veiculo.setPreco(dto.getPreco());
         veiculo.setQuilometragem(dto.getQuilometragem());
+        veiculo.setAno(dto.getAno());
+        veiculo.setMarca(dto.getMarca());
+        veiculo.setTransmissao(dto.getTransmissao());
+        veiculo.setCarroceria(dto.getCarroceria());
+        veiculo.setCombustivel(dto.getCombustivel());
+        veiculo.setQtdPortas(dto.getQtdPortas());
+        veiculo.setCor(dto.getCor());
         return veiculoRepository.save(veiculo);
     }
 
