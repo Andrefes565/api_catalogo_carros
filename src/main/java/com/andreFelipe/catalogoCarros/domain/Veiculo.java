@@ -41,4 +41,7 @@ public class Veiculo implements Serializable {
     private Integer qtdPortas;
     @Column(name = "cor")
     private String cor;
+    @Column
+    @Lob
+    private byte[] foto;
 }

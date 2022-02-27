@@ -4,6 +4,7 @@ import com.andreFelipe.catalogoCarros.domain.Veiculo;
 import com.andreFelipe.catalogoCarros.model.FilterModel;
 import com.andreFelipe.catalogoCarros.model.PageModel;
 import com.andreFelipe.catalogoCarros.rest.dtos.VeiculoDTO;
+import org.springframework.data.domain.Page;
 
 import java.util.List;
 import java.util.Optional;
@@ -12,7 +13,7 @@ public interface VeiculoService {
 
     Veiculo create(VeiculoDTO dto);
     List<Veiculo> listAll();
-    PageModel<Veiculo> listAll(FilterModel filter);
-    Optional<Veiculo> findById(Integer id);
+    Page<Veiculo> listAll(FilterModel filter);
+    Optional<Veiculo> findById(Long id);
 
 }
