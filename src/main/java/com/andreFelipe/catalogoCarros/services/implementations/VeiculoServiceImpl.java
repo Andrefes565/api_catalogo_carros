@@ -4,6 +4,7 @@ import com.andreFelipe.catalogoCarros.domain.Veiculo;
 import com.andreFelipe.catalogoCarros.model.EqualFilterModel;
 import com.andreFelipe.catalogoCarros.model.FilterModel;
 import com.andreFelipe.catalogoCarros.specification.VeiculoSpecification;
+import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -14,6 +15,9 @@ import com.andreFelipe.catalogoCarros.repository.VeiculoRepository;
 import com.andreFelipe.catalogoCarros.rest.dtos.VeiculoDTO;
 import com.andreFelipe.catalogoCarros.services.abstrations.VeiculoService;
 
+import javax.servlet.http.Part;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
 import java.util.Optional;
 
@@ -100,5 +104,23 @@ public class VeiculoServiceImpl implements VeiculoService {
         return veiculoRepository.findById(id);
     }
 
+
+    public byte[] uploadFotoVeiculo(Optional<Veiculo> veiculo, Part arquivo) {
+
+        return veiculo.map(v -> {
+            try {
+                InputStream is = arquivo.getInputStream();
+                byte[] bytes = new byte[(int) arquivo.getSize()];
+                IOUtils.readFully(is, bytes);
+                v.setFoto(bytes);
+                veiculoRepository.save(v);
+                is.close();
+                return  bytes;
+            } catch (IOException e) {
+                return null;
+            }
+
+        }).orElse(null);
+    }
 
 }

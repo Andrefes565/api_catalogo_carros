@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import com.andreFelipe.catalogoCarros.rest.dtos.VeiculoDTO;
 import com.andreFelipe.catalogoCarros.services.abstrations.VeiculoService;
 
+import javax.servlet.http.Part;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -57,7 +58,10 @@ public class VeiculoController {
     }
 
     @PutMapping("{id}/foto")
-    public byte[]addPhoto() {
+    public byte[]addPhoto(@PathVariable Long id, @RequestParam("foto") Part arquivo) {
+        Optional<Veiculo> veiculo = service.findById(id);
+
+        return  service.uploadFotoVeiculo(veiculo, arquivo);
 
     }
 
