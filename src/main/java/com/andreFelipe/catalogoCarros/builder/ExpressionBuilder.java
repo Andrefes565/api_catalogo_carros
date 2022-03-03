@@ -45,7 +45,7 @@ public class ExpressionBuilder<T> {
                 }
             }
         }catch (Exception e){
-            return  null;
+            return null;
         }
         return null;
     }
@@ -58,6 +58,7 @@ public class ExpressionBuilder<T> {
 
         return contain;
     }
+
 
 
 }

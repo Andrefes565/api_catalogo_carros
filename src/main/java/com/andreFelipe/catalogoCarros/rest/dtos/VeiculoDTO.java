@@ -12,8 +12,8 @@ public class VeiculoDTO {
     private String modelo;
     private String marca;
     private Double preco;
-    private String quilometragem;
-    private String ano;
+    private Integer quilometragem;
+    private Integer ano;
     private String transmissao;
     private String combustivel;
     private String carroceria;

@@ -1,6 +1,7 @@
 package com.andreFelipe.catalogoCarros.services.implementations;
 
 import com.andreFelipe.catalogoCarros.domain.Veiculo;
+import com.andreFelipe.catalogoCarros.model.DifferentFilterModel;
 import com.andreFelipe.catalogoCarros.model.EqualFilterModel;
 import com.andreFelipe.catalogoCarros.model.FilterModel;
 import com.andreFelipe.catalogoCarros.specification.VeiculoSpecification;
@@ -62,41 +63,23 @@ public class VeiculoServiceImpl implements VeiculoService {
 
         List<EqualFilterModel> equalFilters = filter.getEqualFilters();
 
+
+
         if(!equalFilters.isEmpty()){
             EqualFilterModel firsEqf =  equalFilters.get(0);
             spec = VeiculoSpecification.equal(firsEqf);
 
             for (int i = 1; i < equalFilters.size(); i++){
-                spec= spec.and(VeiculoSpecification.equal(equalFilters.get(i)));
+                EqualFilterModel equalFilterModel = equalFilters.get(i);
+                Specification<Veiculo> equal = VeiculoSpecification.equal(equalFilterModel);
+                spec= spec.and(equal);
             }
         }
+
 
         Page<Veiculo> veiculoPage =veiculoRepository.findAll(spec, pageable);
         return veiculoPage;
     }
-    /*
-    @Override
-    public PageModel<Veiculo> listAll(FilterModel filter) {
-        Pageable pageable = filter.toSpringPageable();
-
-        Specification<Veiculo> spec = null;
-
-        List<EqualFilterModel> equalFilters = filter.getEqualFilters();
-
-        if(!equalFilters.isEmpty()){
-            EqualFilterModel firsEqf =  equalFilters.get(0);
-            spec = VeiculoSpecification.equal(firsEqf);
-
-            for (int i = 1; i < equalFilters.size(); i++){
-                spec= spec.and(VeiculoSpecification.equal(equalFilters.get(i)));
-            }
-        }
-
-        Page<Veiculo> veiculoPage =veiculoRepository.findAll(spec, pageable);
-        PageModel<Veiculo> pm = new PageModel<>(veiculoPage);
-        return pm;
-    }
-    */
 
 
     @Override

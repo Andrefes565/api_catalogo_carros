@@ -26,11 +26,11 @@ public class Veiculo implements Serializable {
     @Column(name = "preco", precision = 20, scale = 2)
     private Double preco;
     @Column(name = "quilometragem")
-    private String quilometragem;
+    private Integer quilometragem;
     @Column(name = "marca")
     private String marca;
     @Column(name = "ano")
-    private String ano;
+    private Integer ano;
     @Column(name = "transmissao")
     private String transmissao;
     @Column(name = "combustivel")
